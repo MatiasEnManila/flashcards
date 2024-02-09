@@ -12,9 +12,9 @@ function Flashcard({frontFace, backFace}) {
 
 
     if (faceForwardFlashcard) {
-        return  <div className='front-flash' onClick={() => flipcard(!faceForwardFlashcard)}> {frontFace}</div>
+        return  <div className='flashcard front-flash' onClick={() => flipcard(!faceForwardFlashcard)}> {frontFace}</div>
     } else {
-        return <div className="back-flash" onClick={() => flipcard(!faceForwardFlashcard)}> {backFace}</div>
+        return <div className='flashcard back-flash' onClick={() => flipcard(!faceForwardFlashcard)}> {backFace}</div>
     }       
 }
 

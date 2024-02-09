@@ -1,5 +1,5 @@
 import './App.css';
-import './Flashcard.js';
+import './Flashcard.js';  
 import Flashcard from './Flashcard';
 import { useState } from 'react';
 
@@ -68,7 +68,7 @@ function App(props) {
       return (
         <div className="App">
           <button className='button' onClick={() => updateButton(!button)}>Create new deck</button>
-          <div className='flashcard'>
+          <div>
           {flashcards.length > 0 && flashcards.map(flashcard => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace}/>)}
           </div>
         </div> 
