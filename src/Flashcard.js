@@ -3,6 +3,7 @@ import '../src/chinese-characters/stylesheets/Flashcard.css';
 import { useState } from 'react';
 
 function Flashcard({frontFace, backFace}) {
+    // TODO identify when an URL inserted - check if its an url t/f
     const [faceForwardFlashcard, setfaceForwardFlashcard] = useState(true);
 
     const flipcard = (newValue) => {
