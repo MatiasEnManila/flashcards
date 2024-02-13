@@ -23,12 +23,7 @@ return !!urlPattern.test(urlString);
 }
 
   const handleChangeFrontFace = (event) => { //Cara delantera de la flashcard
-    if (isValidUrl(event.target.value)) {  //Checkea si a input field se le asigno un URL
-      console.log("Lo es");
-    } else { //si no se le asigno, entonces ejecuta la strings
-      console.log(event.target.value);
       setFrontFaceFlashcard(event.target.value); //guarda el input del campo en fronFaceFlashcard}
-    }
   } 
   
   const handleChangeBackFace = (event) => { //cara trasera de la flashcard
