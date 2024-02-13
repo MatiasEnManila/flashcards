@@ -10,14 +10,32 @@ function App(props) {
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
   const [flashcards, setFlashCards] = useState([]);
 
-  console.log(flashcards);
+  const isValidUrl = urlString=> {
+    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
+  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
+  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
+  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
+  '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+return !!urlPattern.test(urlString);
+}
 
   const handleChangeFrontFace = (event) => { //Cara delantera de la flashcard
-    setFrontFaceFlashcard(event.target.value); //guarda el input del campo en fronFaceFlashcard
+    if (isValidUrl(event.target.value)) {  //Checkea si a input field se le asigno un URL
+      console.log("Lo es");
+    } else { //si no se le asigno, entonces ejecuta la strings
+      console.log(event.target.value);
+      setFrontFaceFlashcard(event.target.value); //guarda el input del campo en fronFaceFlashcard}
+    }
   } 
   
   const handleChangeBackFace = (event) => { //cara trasera de la flashcard
-    setBackFaceFlashcard(event.target.value);
+    if (isValidUrl(event.target.value)) {
+      console.log("Lo es");
+    } else {
+      console.log(event.target.value);
+      setBackFaceFlashcard(event.target.value);
+    }
   }
 
   
