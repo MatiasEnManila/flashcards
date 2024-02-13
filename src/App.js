@@ -10,6 +10,8 @@ function App(props) {
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
   const [flashcards, setFlashCards] = useState([]);
 
+
+  // Validates: protocol, then domain name, ip v4 address, port and path, query string, fragment locator
   const isValidUrl = urlString=> {
     var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
