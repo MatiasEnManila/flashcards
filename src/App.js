@@ -67,7 +67,7 @@ function App(props) {
         <div className="App">
           <button className='button' onClick={() => updateButton(!button)}>Create new flashcard</button>
           <div>
-          {flashcards.length > 0 && flashcards.map((flashcard, i) => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace} deleteFlashcard={() => deleteFlashcard(i)} formInput={} />)}
+          {flashcards.length > 0 && flashcards.map((flashcard, i) => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace} deleteFlashcard={() => deleteFlashcard(i)} />)}
           </div>
         </div> 
     );
