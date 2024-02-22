@@ -4,14 +4,19 @@ import Flashcard from './Flashcard';
 import { useState } from 'react';
 
 function App(props) {
-  const [button, setButton] = useState(false);
-  
-  const [frontFaceFlashcard, setFrontFaceFlashcard] = useState('');
+
+  const [button, setButton] = useState(false);  
+  const [frontFaceFlashcard, setFrontFaceFlashcard] = useState(''); 
+
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
-  const [flashcards, setFlashCards] = useState([]);
+  const [flashcards, setFlashcards] = useState([]);
+  
+
+  const deleteFlashcard = (indexToDelete) => {
+    setFlashcards(flashcards.filter((flashcard, index) => index != indexToDelete));
+  }
 
 
-  // Validates: protocol, then domain name, ip v4 address, port and path, query string, fragment locator
   const isValidUrl = urlString=> {
     var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
@@ -26,28 +31,21 @@ return !!urlPattern.test(urlString);
       setFrontFaceFlashcard(event.target.value); //guarda el input del campo en fronFaceFlashcard}
   } 
   
-  const handleChangeBackFace = (event) => { //cara trasera de la flashcard
+  const handleChangeBackFace = (event) => {
     if (isValidUrl(event.target.value)) {
-      console.log("Lo es");
     } else {
-      console.log(event.target.value);
       setBackFaceFlashcard(event.target.value);
     }
   }
 
   
   const handleClick = () => { // Guarda en flashcards el input puesto en forma de objeto
-    setFlashCards([...flashcards, {frontFace: frontFaceFlashcard, backFace: BackFaceFlashcard}]);
+    setFlashcards([...flashcards, {frontFace: frontFaceFlashcard, backFace: BackFaceFlashcard}]);
   }
   
   const updateButton = () => { //
     setButton(!button);
   }
-
-  const numbers = [1, 2, 3, 4];
-
-  
-
 
   if (button) {
     return ( 
@@ -71,7 +69,6 @@ return !!urlPattern.test(urlString);
             value={BackFaceFlashcard}>
           </input>
         </form>
-        {/* Acá se guardaría el input de FFF BFF en forma de objeto? */}
         <button onClick={handleClick}>Submit</button>
         <button onClick={() => setButton(!button)}>Go back</button>
       </div>
@@ -82,9 +79,14 @@ return !!urlPattern.test(urlString);
     } else { // HOME  
       return (
         <div className="App">
+
+          {/* <div>
+           <button onClick={() => setIsTrue(!isTrue)}>Button</button>
+           {isTrue ? console.log("true") : console.log("fake")}
+          </div>   */}
           <button className='button' onClick={() => updateButton(!button)}>Create new deck</button>
           <div>
-          {flashcards.length > 0 && flashcards.map(flashcard => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace}/>)}
+          {flashcards.length > 0 && flashcards.map((flashcard, i) => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace} deleteFlashcard={() => deleteFlashcard(i)}/>)}
           </div>
         </div> 
     );

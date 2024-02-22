@@ -1,12 +1,18 @@
-import { isVisible } from '@testing-library/user-event/dist/utils';
+// import { isVisible } from '@testing-library/user-event/dist/utils';
 import '../src/chinese-characters/stylesheets/Flashcard.css';
-// import ChineseCharacter from './chinese-characters/chinese-character.png';
 import { useState } from 'react';
 
-function Flashcard({frontFace, backFace}) {
-    // TODO Return only if its the URL of a picture - isValidUrl
+function Flashcard({frontFace, backFace, deleteFlashcard}) {
+    // TODO click event handler para borrar la flashcards en la cual uno clickea, usar metodo filter para deletearla?
+    // TODO  Render: Actulizar el DOM? el html
+    // TODO  Que es lo que quiero filtrar para poder eliminar?
     const [faceForwardFlashcard, setfaceForwardFlashcard] = useState(true);
+    // const [deleteFlashcard, setDeleteFlashcard]  = useState(frontFace, backFace);
 
+    // const onDelete = () => {
+    //     setDeleteFlashcard(deleteFlashcard.filter(flashcard => flashcard))
+    // }
+    
     const flipcard = (newValue) => {
         setfaceForwardFlashcard(newValue);
     }
@@ -24,14 +30,23 @@ function Flashcard({frontFace, backFace}) {
 
     if (faceForwardFlashcard) {
         return (
-            <div className='flashcard front-flash' onClick={() => flipcard(!faceForwardFlashcard)}>
-                {isValidUrl(frontFace) ? <img src={(frontFace)}  alt="picture"/> : frontFace}
+            <div className='flashcard front-flash'>
+                <div onClick={() => flipcard(!faceForwardFlashcard)}>{isValidUrl(frontFace) ? <img src={(frontFace)}  alt="picture"/> : frontFace}</div>
+                <div>
+                <button type="button" onClick={deleteFlashcard}>Borrar flashcard</button> 
+                    {/* Filtrar todo lo que no sea una string 
+                      button tiene que devolver un return? Return sobre return? 
+                    */}
+                </div>
             </div>
         )
     } else {
         return ( 
-            <div className='flashcard back-flash' onClick={() => flipcard(!faceForwardFlashcard)}>
-                {isValidUrl(backFace) ? <img src={(backFace)}  alt="picture"/> : backFace}
+            <div className='flashcard back-flash'>
+                <div onClick={() => flipcard(!faceForwardFlashcard)}>{isValidUrl(backFace) ? <img src={(backFace)}  alt="picture"/> : backFace}</div>
+                <div>
+                    {/* <button onClick={remove}>Delete</button> */}
+                </div>
             </div>
         )
       }
