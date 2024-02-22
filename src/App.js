@@ -1,7 +1,10 @@
 import './App.css';
 import './Flashcard.js';  
-import Flashcard from './Flashcard';
+import Flashcard from './Flashcard.js';
 import { useState } from 'react';
+
+// TODO Formulario de cracion, pantalla,  pasar a componente aparte
+// TODO Que acepte props que se encontraban en el formumlario
 
 function App(props) {
   const [button, setButton] = useState(false);
@@ -64,19 +67,11 @@ function App(props) {
         <div className="App">
           <button className='button' onClick={() => updateButton(!button)}>Create new flashcard</button>
           <div>
-          {flashcards.length > 0 && flashcards.map((flashcard, i) => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace} deleteFlashcard={() => deleteFlashcard(i)}/>)}
+          {flashcards.length > 0 && flashcards.map((flashcard, i) => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace} deleteFlashcard={() => deleteFlashcard(i)} formInput={} />)}
           </div>
         </div> 
     );
   }
 }
-
-
-
-
-
-
-
-
 
 export default App;
