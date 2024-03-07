@@ -1,20 +1,22 @@
 import './App.css';
 import './Flashcard.js';  
 import Flashcard from './Flashcard.js';
+import Formflashcard from './Formflashcard.js'
 import { useState } from 'react';
 
-// TODO Formulario de cracion, pantalla,  pasar a componente aparte
-// TODO Que acepte props que se encontraban en el formumlario
+// TODO submit button redirects you home page
 
 function App(props) {
   const [button, setButton] = useState(false);
+
 
   const [frontFaceFlashcard, setFrontFaceFlashcard] = useState(''); 
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
   
   const [flashcards, setFlashcards] = useState([]);
   
-
+  console.log(Formflashcard);
+  
   const deleteFlashcard = (indexToDelete) => {
     setFlashcards(flashcards.filter((flashcard, index) => index != indexToDelete));
   }
@@ -27,7 +29,6 @@ function App(props) {
     setBackFaceFlashcard(event.target.value);
   }
 
-  
   const createFlashcard = () => { // Guarda en flashcards el input puesto en forma de objeto
     setFlashcards([...flashcards, {frontFace: frontFaceFlashcard, backFace: BackFaceFlashcard}]);
   }
@@ -37,39 +38,22 @@ function App(props) {
   }
 
   if (button) {
-    return ( 
-      <div>  
-        <form>
-          <label htmlFor='frontFaceFlashcard'>Face forward</label>
-          <input 
-            type="text"
-            id="frontFaceFlashcard" 
-            name="frontFaceFlashcard"
-            onChange={handleChangeFrontFace}
-          />
-          <label htmlFor='BackFaceFlashcard'>Face backward</label>
-          <input 
-            type="text"
-            id="BackFaceFlashcard" 
-            name="BackFaceFlashcard"
-            onChange={handleChangeBackFace}
-          />
-        </form>
-        <button onClick={createFlashcard}>Submit</button>
-        <button onClick={() => setButton(!button)}>Go back</button>
-      </div>
-
-      );  
-
-
-    } else { // HOME  
-      return (
-        <div className="App">
-          <button className='button' onClick={() => updateButton(!button)}>Create new flashcard</button>
-          <div>
-          {flashcards.length > 0 && flashcards.map((flashcard, i) => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace} deleteFlashcard={() => deleteFlashcard(i)} />)}
-          </div>
-        </div> 
+    return (
+      <Formflashcard
+        faceForward={handleChangeFrontFace}
+        faceBackward={handleChangeBackFace} 
+        createCard={createFlashcard} 
+        goBack={updateButton}
+      />
+    );  
+  } else { // HOME  
+    return (
+      <div className="App">
+        <button className='button' onClick={() => updateButton()}>Create new flashcard</button>
+        <div>
+        {flashcards.length > 0 && flashcards.map((flashcard, i) => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace} deleteFlashcard={() => deleteFlashcard(i)} />)}
+        </div>
+      </div> 
     );
   }
 }
