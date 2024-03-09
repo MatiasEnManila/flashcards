@@ -5,6 +5,7 @@ import Formflashcard from './Formflashcard.js'
 import { useState } from 'react';
 
 // TODO submit button redirects you home page
+// TODO agregar en cada flashcard boton edit. Cuando haces click redirectee al componente inputField
 
 function App(props) {
   const [button, setButton] = useState(false);
@@ -46,7 +47,7 @@ function App(props) {
         goBack={updateButton}
       />
     );  
-  } else { // HOME  
+  } else { // HOME PAGE 
     return (
       <div className="App">
         <button className='button' onClick={() => updateButton()}>Create new flashcard</button>

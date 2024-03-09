@@ -1,6 +1,10 @@
-import { useState } from "react";
 
 function Formflashcard({faceForward, faceBackward, createCard, goBack}) {
+  const onSubmit = () => {
+    createCard();
+    goBack();
+  }
+
   return ( 
     <div>  
       <form>
@@ -20,7 +24,7 @@ function Formflashcard({faceForward, faceBackward, createCard, goBack}) {
         />
       </form>
       
-      <button onClick={createCard}>Submit</button>
+      <button onClick={onSubmit}>Submit</button>
       <button onClick={goBack}>Go back</button>
     </div>
   );
