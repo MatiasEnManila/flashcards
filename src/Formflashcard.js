@@ -1,5 +1,5 @@
 
-function Formflashcard({faceForward, faceBackward, createCard, goBack}) {
+function Formflashcard({handleChangeFrontFace, handleChangeBackFace, createCard, goBack, frontFace, backFace}) {
   const onSubmit = () => {
     createCard();
     goBack();
@@ -13,14 +13,16 @@ function Formflashcard({faceForward, faceBackward, createCard, goBack}) {
           type="text"
           id="frontFaceFlashcard" 
           name="frontFaceFlashcard"
-          onChange={faceForward}
+          onChange={handleChangeFrontFace}
+          value={frontFace}
         />
         <label htmlFor='BackFaceFlashcard'>Face backward</label>
         <input 
           type="text"
           id="BackFaceFlashcard" 
           name="BackFaceFlashcard"
-          onChange={faceBackward}
+          onChange={handleChangeBackFace}
+          value={backFace}
         />
       </form>
       

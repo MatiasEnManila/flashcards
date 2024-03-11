@@ -4,8 +4,7 @@ import Flashcard from './Flashcard.js';
 import Formflashcard from './Formflashcard.js'
 import { useState } from 'react';
 
-// TODO submit button redirects you home page
-// TODO agregar en cada flashcard boton edit. Cuando haces click redirectee al componente inputField
+// TODO 
 
 function App(props) {
   const [button, setButton] = useState(false);
@@ -15,13 +14,11 @@ function App(props) {
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
   
   const [flashcards, setFlashcards] = useState([]);
-  
-  console.log(Formflashcard);
-  
+
   const deleteFlashcard = (indexToDelete) => {
     setFlashcards(flashcards.filter((flashcard, index) => index != indexToDelete));
   }
-
+  
   const handleChangeFrontFace = (event) => {
     setFrontFaceFlashcard(event.target.value); // Guarda el input del campo en fronFaceFlashcard
   } 
@@ -34,25 +31,41 @@ function App(props) {
     setFlashcards([...flashcards, {frontFace: frontFaceFlashcard, backFace: BackFaceFlashcard}]);
   }
   
-  const updateButton = () => {
+  const updateButton = (isEdit, frontFace, backFace) => {
+    if (isEdit) {
+      setFrontFaceFlashcard(frontFace);
+      setBackFaceFlashcard(backFace);
+    } else {
+      setFrontFaceFlashcard("");
+      setBackFaceFlashcard("");
+    }
     setButton(!button);
   }
 
   if (button) {
     return (
       <Formflashcard
-        faceForward={handleChangeFrontFace}
-        faceBackward={handleChangeBackFace} 
+        handleChangeFrontFace={handleChangeFrontFace}
+        handleChangeBackFace={handleChangeBackFace} 
         createCard={createFlashcard} 
         goBack={updateButton}
+        frontFace={frontFaceFlashcard}
+        backFace={BackFaceFlashcard}
       />
     );  
   } else { // HOME PAGE 
     return (
       <div className="App">
-        <button className='button' onClick={() => updateButton()}>Create new flashcard</button>
+        <button className='button' onClick={() => updateButton(false)}>Create new flashcard</button>
         <div>
-        {flashcards.length > 0 && flashcards.map((flashcard, i) => <Flashcard frontFace={flashcard.frontFace} backFace={flashcard.backFace} deleteFlashcard={() => deleteFlashcard(i)} />)}
+        {flashcards.length > 0 && flashcards.map((flashcard, i) => (
+          <Flashcard 
+            frontFace={flashcard.frontFace} 
+            backFace={flashcard.backFace} 
+            deleteFlashcard={() => deleteFlashcard(i)}
+            editFlashcard={() => updateButton(true, flashcard.frontFace, flashcard.backFace)} 
+          />)
+        )}
         </div>
       </div> 
     );

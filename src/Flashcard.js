@@ -1,7 +1,7 @@
 import '../src/chinese-characters/stylesheets/Flashcard.css';
 import { useState } from 'react';
 
-function Flashcard({frontFace, backFace, deleteFlashcard}) {
+function Flashcard({frontFace, backFace, deleteFlashcard, editFlashcard}) {
   const [faceForwardFlashcard, setfaceForwardFlashcard] = useState(true);
   
   const flipcard = (newValue) => {
@@ -24,7 +24,8 @@ function Flashcard({frontFace, backFace, deleteFlashcard}) {
       <div className='flashcard front-flash'>
         <div onClick={() => flipcard(!faceForwardFlashcard)}>{isValidUrl(frontFace) ? <img src={(frontFace)}  alt="picture"/> : frontFace}</div>
         <div>
-          <button type="button" onClick={deleteFlashcard}>Borrar flashcard</button> 
+          <button type="button" onClick={deleteFlashcard}>Delete</button> 
+          <button type="button" onClick={editFlashcard}>Edit</button> 
         </div>
       </div>
     )
@@ -33,7 +34,8 @@ function Flashcard({frontFace, backFace, deleteFlashcard}) {
       <div className='flashcard back-flash'>
         <div onClick={() => flipcard(!faceForwardFlashcard)}>{isValidUrl(backFace) ? <img src={(backFace)}  alt="picture"/> : backFace}</div>
         <div>
-          <button type="button" onClick={deleteFlashcard}>Borrar flashcard</button> 
+          <button type="button" onClick={deleteFlashcard}>Delete</button>
+          <button type="button" onClick={editFlashcard}>Edit</button> 
         </div>
       </div>
     )
