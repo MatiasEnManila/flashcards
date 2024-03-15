@@ -8,6 +8,7 @@ function Flashcard({frontFace, backFace, deleteFlashcard, editFlashcard}) {
     setfaceForwardFlashcard(newValue);
   }
   
+
   const isValidUrl = urlString=> {
     var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name

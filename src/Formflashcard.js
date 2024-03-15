@@ -1,8 +1,9 @@
 
-function Formflashcard({handleChangeFrontFace, handleChangeBackFace, createCard, goBack, frontFace, backFace}) {
-  const onSubmit = () => {
-    createCard();
-    goBack();
+function Formflashcard({handleChangeFrontFace, handleChangeBackFace, onSubmit, goBack, frontFace, backFace}) {
+  const handleSubmit = () => {
+      onSubmit();
+      goBack();
+      
   }
 
   return ( 
@@ -12,7 +13,6 @@ function Formflashcard({handleChangeFrontFace, handleChangeBackFace, createCard,
         <input 
           type="text"
           id="frontFaceFlashcard" 
-          name="frontFaceFlashcard"
           onChange={handleChangeFrontFace}
           value={frontFace}
         />
@@ -20,15 +20,14 @@ function Formflashcard({handleChangeFrontFace, handleChangeBackFace, createCard,
         <input 
           type="text"
           id="BackFaceFlashcard" 
-          name="BackFaceFlashcard"
           onChange={handleChangeBackFace}
           value={backFace}
         />
       </form>
-      
-      <button onClick={onSubmit}>Submit</button>
+
+      <button onClick={handleSubmit}>Submit</button>
       <button onClick={goBack}>Go back</button>
-    </div>
+     </div>
   );
 }
 
