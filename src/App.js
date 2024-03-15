@@ -2,26 +2,33 @@ import './App.css';
 import './Flashcard.js';  
 import Flashcard from './Flashcard.js';
 import Formflashcard from './Formflashcard.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // TODO 
 
-function App(props) {
+function App(props) {  
+  let initialFlashcards = [];
+  const savedFlashcards = JSON.parse(localStorage.getItem('flashcards'));
+  if (savedFlashcards) {
+    initialFlashcards = savedFlashcards;
+  }
+  
+  const [flashcards, setFlashcards] = useState(initialFlashcards); //Flashcard creation
+  const [isEdit, setIsEdit] = useState(false);
+  const [flashcardIndex, setFlashcardIndex] = useState(null);
   const [button, setButton] = useState(false);
   const [frontFaceFlashcard, setFrontFaceFlashcard] = useState('');
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
+  
+  useEffect(() => {
+    localStorage.setItem('flashcards', JSON.stringify(flashcards));
+  }, [flashcards]);
 
-  const [flashcards, setFlashcards] = useState([]); //Flashcard creation
-  const [isEdit, setIsEdit] = useState(false);
-  const [flashcardIndex, setFlashcardIndex] = useState(null);
 
   const deleteFlashcard = (indexToDelete) => {
     setFlashcards(flashcards.filter((flashcard, index) => index != indexToDelete));
   }
 
-
-  
-  // Esta funcion
   const editingFlashcard = (flashcardIndex) => {
     setFlashcards(flashcards.map((flashcard, i) => {
       if (flashcardIndex === i) {
