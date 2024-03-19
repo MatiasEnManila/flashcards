@@ -3,7 +3,6 @@ function Formflashcard({handleChangeFrontFace, handleChangeBackFace, onSubmit, g
   const handleSubmit = () => {
       onSubmit();
       goBack();
-      
   }
 
   return ( 
