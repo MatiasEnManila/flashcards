@@ -4,7 +4,8 @@ import Flashcard from './Flashcard.js';
 import Formflashcard from './Formflashcard.js';
 import { useEffect, useState } from 'react';
 
-function CreateFlashcards() {
+
+function CreateFlashcards({returnToHomePage}) {
   let initialFlashcards = [];
   const savedFlashcards = JSON.parse(localStorage.getItem('flashcards'));
   if (savedFlashcards) {
@@ -18,7 +19,7 @@ function CreateFlashcards() {
   const [frontFaceFlashcard, setFrontFaceFlashcard] = useState('');
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
 
-  const [homeweb, setHomeweb] = useState(true);
+  // const [homeweb, setHomeweb] = useState(true);
   
   useEffect(() => {
     localStorage.setItem('flashcards', JSON.stringify(flashcards));
@@ -26,7 +27,7 @@ function CreateFlashcards() {
 
 
   const deleteFlashcard = (indexToDelete) => {
-    setFlashcards(flashcards.filter((flashcard, index) => index != indexToDelete));
+    setFlashcards(flashcards.filter((flashcard, index) => index !== indexToDelete));
   }
 
   const editingFlashcard = (flashcardIndex) => {
@@ -52,15 +53,7 @@ function CreateFlashcards() {
   }
 
   const returnHomepage = () => {
-    if (homeweb) {
-      return (
-        <div>
-          <button type='button'>View Flashcards</button>
-        </div>
-      )
-    } else {
-
-    }
+    returnToHomePage();
   }
 
   
@@ -81,20 +74,20 @@ function CreateFlashcards() {
   if (button) {
     return (
       <Formflashcard
-        handleChangeFrontFace={handleChangeFrontFace}
-        handleChangeBackFace={handleChangeBackFace} 
-        onSubmit={ isEdit ? () => editingFlashcard(flashcardIndex) : createFlashcard} 
-        goBack={updateButton}
-        frontFace={frontFaceFlashcard}
-        backFace={BackFaceFlashcard}
-        />
-    );  
-  } else { // HOME PAGE 
-    return (
-      <div className="App">
+      handleChangeFrontFace={handleChangeFrontFace}
+      handleChangeBackFace={handleChangeBackFace} 
+      onSubmit={ isEdit ? () => editingFlashcard(flashcardIndex) : createFlashcard} 
+      goBack={updateButton}
+      frontFace={frontFaceFlashcard}
+      backFace={BackFaceFlashcard}
+      />
+      );  
+    } else { // Create new flashcards + See decks
+      return (
+        <div className="App">
        <button className='button' onClick={() => updateButton(false)}>Create new flashcard</button> 
-       <button className='button' onClick={() => returnHomepage(true)}>Return to homepage</button> 
-        <div>
+       <button className='button' onClick={returnHomepage}>Return to homepage</button> 
+        <div>        
         {flashcards.length > 0 && flashcards.map((flashcard, i) => (
           <Flashcard
             frontFace={flashcard.frontFace} 
