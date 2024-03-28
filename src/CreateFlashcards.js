@@ -18,8 +18,6 @@ function CreateFlashcards({returnToHomePage}) {
   const [button, setButton] = useState(false);
   const [frontFaceFlashcard, setFrontFaceFlashcard] = useState('');
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
-
-  // const [homeweb, setHomeweb] = useState(true);
   
   useEffect(() => {
     localStorage.setItem('flashcards', JSON.stringify(flashcards));
