@@ -24,7 +24,7 @@ function Formflashcard({handleChangeFrontFace, handleChangeBackFace, onSubmit, g
         />
       </form>
 
-      <button onClick={handleSubmit}>Submit</button>
+      <button  type="submit" onClick={handleSubmit}>Submit</button>
       <button onClick={goBack}>Go back</button>
      </div>
   );

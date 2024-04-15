@@ -5,37 +5,23 @@ import Formflashcard from './Formflashcard.js';
 import { useEffect, useState } from 'react';
 
 
-function CreateFlashcards({returnToHomePage}) {
-  let initialFlashcards = [];
-  const savedFlashcards = JSON.parse(localStorage.getItem('flashcards'));
-  if (savedFlashcards) {
-    initialFlashcards = savedFlashcards;
-  }
-  
-  const [flashcards, setFlashcards] = useState(initialFlashcards); //Flashcard creation
+function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, editFlashcard, deleteFlashcard}) {
   const [isEdit, setIsEdit] = useState(false);
   const [flashcardIndex, setFlashcardIndex] = useState(null);
   const [button, setButton] = useState(false);
   const [frontFaceFlashcard, setFrontFaceFlashcard] = useState('');
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
+
   
-  useEffect(() => {
-    localStorage.setItem('flashcards', JSON.stringify(flashcards));
-  }, [flashcards]);
-
-
-  const deleteFlashcard = (indexToDelete) => {
-    setFlashcards(flashcards.filter((flashcard, index) => index !== indexToDelete));
-  }
 
   const editingFlashcard = (flashcardIndex) => {
-    setFlashcards(flashcards.map((flashcard, i) => {
-      if (flashcardIndex === i) {
-        return {frontFace: frontFaceFlashcard, backFace: BackFaceFlashcard};
-      } else {
-        return flashcard;
-      }
-    }));
+    // setFlashcards(flashcards.map((flashcard, i) => {
+    //   if (flashcardIndex === i) {
+    //     return {frontFace: frontFaceFlashcard, backFace: BackFaceFlashcard};
+    //   } else {
+    //     return flashcard;
+    //   }
+    // }));
   }
 
   const handleChangeFrontFace = (event) => {
@@ -46,8 +32,8 @@ function CreateFlashcards({returnToHomePage}) {
     setBackFaceFlashcard(event.target.value); // Obtiene y guarda el input del campo en backFaceFlashcard "Rossi"
   }
 
-  const createFlashcard = () => { // Guarda en array "flashcards" input puesto, en forma de objeto
-    setFlashcards([...flashcards, {frontFace: frontFaceFlashcard, backFace: BackFaceFlashcard}]);
+  const onCreateFlashcard = () => {
+    createFlashcard(frontFaceFlashcard, BackFaceFlashcard);
   }
 
   const returnHomepage = () => {
@@ -68,13 +54,14 @@ function CreateFlashcards({returnToHomePage}) {
     } 
     setButton(!button);
   }
+  
 
   if (button) {
     return (
       <Formflashcard
       handleChangeFrontFace={handleChangeFrontFace}
       handleChangeBackFace={handleChangeBackFace} 
-      onSubmit={ isEdit ? () => editingFlashcard(flashcardIndex) : createFlashcard} 
+      onSubmit={ isEdit ? () => editingFlashcard(flashcardIndex) : onCreateFlashcard} 
       goBack={updateButton}
       frontFace={frontFaceFlashcard}
       backFace={BackFaceFlashcard}

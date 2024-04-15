@@ -1,13 +1,14 @@
 
 function FormDeck({handleChangeDeckName, onSubmit, goBack, deckName}) {
-    const handleSubmit = () => {
-        onSubmit();
-        goBack();
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      onSubmit();
+      goBack();
     }
   
     return ( 
       <div>  
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor='deckName'>Insert Name</label>
           <input 
             type="text"
@@ -15,11 +16,11 @@ function FormDeck({handleChangeDeckName, onSubmit, goBack, deckName}) {
             onChange={handleChangeDeckName}
             value={deckName}
           />
+          <button type="submit">Submit</button>
+          <button onClick={goBack}>Go back</button>
         </form>
   
-        <button onClick={handleSubmit}>Submit</button>
-        <button onClick={goBack}>Go back</button>
-       </div>
+      </div>
     );
   }
   

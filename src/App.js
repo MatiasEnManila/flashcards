@@ -1,23 +1,24 @@
 import './App.css';
 import './Flashcard.js';
-import CreateFlashcards from './CreateFlashcards.js';
+// import CreateFlashcards from './CreateFlashcards.js';
 import { useState, useEffect } from 'react';
 import FormDeck from './FormDeck.js';
 import Deck from './Deck.js';
+import CreateFlashcards from './CreateFlashcards.js';
 
-// TODO Implementar local storage para las decks
+// TODO edit flashcards button
 
 function App() {
   let initialDecks = [];
-  const savedDecks = JSON.parse(localStorage.getItem('decks'));
+  const savedDecks = JSON.parse(localStorage.getItem('decks')); //Local storaged decks
   if (savedDecks) {
     initialDecks = savedDecks;
   }
 
-  const [homepage, setHomepage] = useState(true);
-  const [deckName, setDeckName] = useState('');
+  const [currentPage, setcurrentPage] = useState('home');
+  const [deckName, setDeckName] = useState(''); // Italiano, Noruego, Chino - Properties
   const [deckIndex, setDeckIndex] = useState(null);
-  const [decks, setDecks] = useState(initialDecks);
+  const [decks, setDecks] = useState(initialDecks); //ARRAY OF DECKS
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
@@ -26,32 +27,56 @@ function App() {
 
   
   const createDeck = () => {
-    setDecks([...decks, {deckName: deckName}]);
+    setDecks([...decks, {deckName: deckName, flashcards: []}]);
   }
 
-  const updateHomepage = () => {
-    setHomepage(!homepage);
+  const updatecurrentPage = () => {
+    setcurrentPage('home');
   }
-
-  const editingDeck = (deckIndex) => {
-    setDecks(decks.map((deck, i) => {
+  
+  const deleteDeck = (indexToDelete) => {
+    setDecks(decks.filter((deck, index) => index !== indexToDelete));
+  }
+  
+  const editingDeck = (deckIndex) => { //INDICE DECK QUE SE ESTA EDITANDO
+    setDecks(decks.map((deck, i) => { //ITERA POR CADA UNA DE LAS DECKS
       if (deckIndex === i) {
-        return {deckName: deckName};
+        return {...deck, deckName: deckName}; //DEVUELVE UN OBJETO DECK, CON PROPIEDAD DECKNAME Y SU VALOR CORRESPONDIENTE
       } else {
-        return deckName;
+        return deck;
       }
     }));
   }
+  
 
   const handleChangeDeckName = (event) => {
     setDeckName(event.target.value);
   }
-
-  const deleteDeck = (indexToDelete) => {
-    setDecks(decks.filter((deck, index) => index !== indexToDelete));
+   
+  const deleteFlashcard = (deckIndex, flashcardIndex) => { //deckIndex: Donde se encuentra flashcard a deletear. // flashcardIndex flashcard a deletear
+    setDecks(decks.map((deck, index) => { // ITA - CH // [0], [1]
+      if (deckIndex === index) {
+        return {
+          ...deck,  
+          flashcards: deck.flashcards.filter((flashcard, currentFlashcardIndex) => flashcardIndex !== currentFlashcardIndex)
+        };
+      } else {
+        return deck;
+      } 
+    }));
   }
 
-  const updateDeck = (deckName, isEdit) => {
+  const editFlashcards = (deckIndex, flashcardIndex) => {
+    setDecks(decks.map((deck, i) => {
+        if (deckIndex === i) {
+          return {...deck, flashcard: deck.flashcard};
+        } else {
+          return deck
+        }
+    }))
+  }
+
+  const updateDeck = (deckName, isEdit, deckIndex) => {
     if (isEdit) {
       setDeckName(deckName);
       setIsEdit(true);
@@ -60,36 +85,66 @@ function App() {
       setDeckName("");
       setIsEdit(false);
     }
-    setHomepage(!homepage);
+    setcurrentPage('form');
   }
-  
-  if (homepage) { // HOME PAGE
-    return (
-      <>
-      { decks.length > 0 && decks.map((deck, i) => (
-        <Deck 
-        deckName={deck.deckName}
-        deleteDeck={() => deleteDeck(i)}
-        editDeck={() => updateDeck(deck.deckName, true)}
-        onSubmit={ isEdit ? () => editingDeck(deckIndex) : createDeck}
-      />)
-      )}
-        {/* <button type='button' onClick={ () => setHomepage(!homepage)}>View flashcards</button> */}
-        <button type='button' onClick={ () => setHomepage(!homepage)}>Create New Deck</button>
-      </>
-    )
-  } else { // CREATE NEW FLASHCARDS + DECKS
-    return (
-      // <CreateFlashcards returnToHomePage={ () => setHomepage(!homepage)} />
-      <FormDeck
-        handleChangeDeckName={handleChangeDeckName}
-        onSubmit={createDeck}
-        goBack={updateHomepage}
-        deckName={deckName}
-      />
-    )
+
+  const viewFlashcards = (deckIndex) => {
+    setDeckIndex(deckIndex);
+    setcurrentPage('view-cards');
+  }
+
+  const createFlashcard = (frontFaceFlashcard, backFaceFlashcard) => { //Parametros vacios??x 
+    setDecks(decks.map((deck, i) => {
+      if (deckIndex === i) {
+        return {...deck, flashcards: [...deck.flashcards, {frontFace: frontFaceFlashcard, backFace: backFaceFlashcard}]};
+      // ...deck.flashcards: flashcards en deck[x]  //    {Property: frontFaceFlashcards, backFace: value}
+      } else {
+        return deck;
+      }
+    }));
+  }
+
+  switch (currentPage) { // HOME PAGE
+    case 'home':
+      return (
+        <>
+        { decks.length > 0 && decks.map((deck, i) => (
+          <Deck 
+          deckName={deck.deckName}
+          deleteDeck={() => deleteDeck(i)}
+          editDeck={() => updateDeck(deck.deckName, true, i)}
+          viewCards={() => viewFlashcards(i)}
+        />)
+        )}
+          {/* <button type='button' onClick={ () => setcurrentPage(!currentPage)}>View flashcards</button> */}
+          <button type='button' onClick={() => updateDeck('', false)}>Create New Deck</button>
+        </>
+      );
+      break;
+    case 'form':  // CREATE NEW FLASHCARDS + DECKS
+      return (
+        <FormDeck
+          handleChangeDeckName={handleChangeDeckName}
+          onSubmit={ isEdit ? () => editingDeck(deckIndex) : createDeck}
+          goBack={updatecurrentPage}
+          deckName={deckName}
+        />
+      );
+      break;
+    case 'view-cards':
+      return (
+        <>
+          <CreateFlashcards  //emular deck
+          returnToHomePage={() => setcurrentPage('home')} 
+          flashcards={decks[deckIndex].flashcards}
+          createFlashcard={createFlashcard}
+          deleteFlashcard={(flashcardIndex) => deleteFlashcard(deckIndex, flashcardIndex)} //deckIndex
+          editFlashcard={editFlashcards}
+        />)
+        </>
+      );
+      break;
   }
 };
-  
 
 export default App;
