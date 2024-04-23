@@ -6,7 +6,6 @@ import FormDeck from './FormDeck.js';
 import Deck from './Deck.js';
 import CreateFlashcards from './CreateFlashcards.js';
 
-// TODO edit flashcards button
 
 function App() {
   let initialDecks = [];
@@ -21,10 +20,12 @@ function App() {
   const [decks, setDecks] = useState(initialDecks); //ARRAY OF DECKS
   const [isEdit, setIsEdit] = useState(false);
 
+
+  
+  
   useEffect(() => {
     localStorage.setItem('decks', JSON.stringify(decks));
   }, [decks]);
-
   
   const createDeck = () => {
     setDecks([...decks, {deckName: deckName, flashcards: []}]);
@@ -47,12 +48,30 @@ function App() {
       }
     }));
   }
-  
+
 
   const handleChangeDeckName = (event) => {
     setDeckName(event.target.value);
   }
-   
+
+  const updateFlashcard = (deckIndex, flashcardIndex, frontFaceFlashcard, backFaceFlashcard) => {
+    setDecks(decks.map((deck, index) => {
+      if (deckIndex === index) { //already inside deck, where flashcard to be edited is at
+        let modifiedFlashcards = deck.flashcards.map((flashcard, i) => {
+          if (flashcardIndex === i) {
+            return {frontFace: frontFaceFlashcard, backFace: backFaceFlashcard};
+          } else {
+            return flashcard;
+          }
+        });
+        return  {...deck, flashcards: modifiedFlashcards}
+      } else {
+        return deck;    
+      }
+    }))
+  }
+
+  
   const deleteFlashcard = (deckIndex, flashcardIndex) => { //deckIndex: Donde se encuentra flashcard a deletear. // flashcardIndex flashcard a deletear
     setDecks(decks.map((deck, index) => { // ITA - CH // [0], [1]
       if (deckIndex === index) {
@@ -66,15 +85,6 @@ function App() {
     }));
   }
 
-  const editFlashcards = (deckIndex, flashcardIndex) => {
-    setDecks(decks.map((deck, i) => {
-        if (deckIndex === i) {
-          return {...deck, flashcard: deck.flashcard};
-        } else {
-          return deck
-        }
-    }))
-  }
 
   const updateDeck = (deckName, isEdit, deckIndex) => {
     if (isEdit) {
@@ -112,11 +122,10 @@ function App() {
           <Deck 
           deckName={deck.deckName}
           deleteDeck={() => deleteDeck(i)}
-          editDeck={() => updateDeck(deck.deckName, true, i)}
+          editDeck={() => updateDeck(deck.deckName, true, i)} // deckName 
           viewCards={() => viewFlashcards(i)}
-        />)
-        )}
-          {/* <button type='button' onClick={ () => setcurrentPage(!currentPage)}>View flashcards</button> */}
+            />
+          ))}
           <button type='button' onClick={() => updateDeck('', false)}>Create New Deck</button>
         </>
       );
@@ -133,15 +142,13 @@ function App() {
       break;
     case 'view-cards':
       return (
-        <>
-          <CreateFlashcards  //emular deck
+        <CreateFlashcards
           returnToHomePage={() => setcurrentPage('home')} 
           flashcards={decks[deckIndex].flashcards}
           createFlashcard={createFlashcard}
-          deleteFlashcard={(flashcardIndex) => deleteFlashcard(deckIndex, flashcardIndex)} //deckIndex
-          editFlashcard={editFlashcards}
-        />)
-        </>
+          deleteFlashcard={(flashcardIndex) => deleteFlashcard(deckIndex, flashcardIndex)}
+          editFlashcard={(flashcardIndex, frontFaceFlashcard, backFaceFlashcard) => updateFlashcard(deckIndex, flashcardIndex, frontFaceFlashcard, backFaceFlashcard)}//Pasar argumentos a updateFlashcard(); frontface/backface
+        />
       );
       break;
   }

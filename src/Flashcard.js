@@ -1,12 +1,18 @@
 import '../src/chinese-characters/stylesheets/Flashcard.css';
 import { useState } from 'react';
 
-function Flashcard({frontFace, backFace, deleteFlashcard, editFlashcard}) {
+function Flashcard({frontFace, backFace, deleteFlashcard, editFlashcard, testFlashcard}) {
   const [faceForwardFlashcard, setfaceForwardFlashcard] = useState(true);
   
   const flipcard = (newValue) => {
     setfaceForwardFlashcard(newValue);
   }
+
+  const testFunction = () => {
+    editFlashcard();
+    // testFlashcard();
+  }
+
   
   const isValidUrl = urlString=> {
     var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
@@ -26,7 +32,7 @@ function Flashcard({frontFace, backFace, deleteFlashcard, editFlashcard}) {
         <div onClick={() => flipcard(!faceForwardFlashcard)}>{isValidUrl(frontFace) ? <img src={(frontFace)}  alt="picture"/> : frontFace}</div>
         <div>
           <button type="button" onClick={deleteFlashcard}>Delete</button> 
-          <button type="button" onClick={editFlashcard}>Edit</button> 
+          <button type="button" onClick={testFunction}>Edit</button> 
         </div>
       </div>
     )

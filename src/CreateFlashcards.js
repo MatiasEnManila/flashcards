@@ -5,31 +5,25 @@ import Formflashcard from './Formflashcard.js';
 import { useEffect, useState } from 'react';
 
 
-function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, editFlashcard, deleteFlashcard}) {
+function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, deleteFlashcard, editFlashcard}) {
   const [isEdit, setIsEdit] = useState(false);
   const [flashcardIndex, setFlashcardIndex] = useState(null);
   const [button, setButton] = useState(false);
   const [frontFaceFlashcard, setFrontFaceFlashcard] = useState('');
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
 
-  
 
-  const editingFlashcard = (flashcardIndex) => {
-    // setFlashcards(flashcards.map((flashcard, i) => {
-    //   if (flashcardIndex === i) {
-    //     return {frontFace: frontFaceFlashcard, backFace: BackFaceFlashcard};
-    //   } else {
-    //     return flashcard;
-    //   }
-    // }));
-  }
+
+    const editingFlashcard = (flashcardIndex, frontFaceFlashcard, backFaceFlashcard) => {
+        editFlashcard(flashcardIndex, frontFaceFlashcard, backFaceFlashcard);
+    } 
 
   const handleChangeFrontFace = (event) => {
-    setFrontFaceFlashcard(event.target.value); // Obtiene y guarda el input del campo en fronFaceFlashcard "Sergio"
+    setFrontFaceFlashcard(event.target.value); // Obtiene y guarda el input del campo en fronFaceFlashcard "Qing tian"
   } 
   
   const handleChangeBackFace = (event) => {
-    setBackFaceFlashcard(event.target.value); // Obtiene y guarda el input del campo en backFaceFlashcard "Rossi"
+    setBackFaceFlashcard(event.target.value); // Obtiene y guarda el input del campo en backFaceFlashcard "Sunny"
   }
 
   const onCreateFlashcard = () => {
@@ -61,7 +55,7 @@ function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, editFl
       <Formflashcard
       handleChangeFrontFace={handleChangeFrontFace}
       handleChangeBackFace={handleChangeBackFace} 
-      onSubmit={ isEdit ? () => editingFlashcard(flashcardIndex) : onCreateFlashcard} 
+      onSubmit={ isEdit ? () => editingFlashcard(flashcardIndex, frontFaceFlashcard, BackFaceFlashcard) : onCreateFlashcard} 
       goBack={updateButton}
       frontFace={frontFaceFlashcard}
       backFace={BackFaceFlashcard}
@@ -69,18 +63,19 @@ function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, editFl
       );  
     } else { // Create new flashcards + See decks
       return (
-        <div className="App">
-       <button className='button' onClick={() => updateButton(false)}>Create new flashcard</button> 
-       <button className='button' onClick={returnHomepage}>Return to homepage</button> 
-        <div>        
-        {flashcards.length > 0 && flashcards.map((flashcard, i) => (
-          <Flashcard
-            frontFace={flashcard.frontFace} 
-            backFace={flashcard.backFace} 
-            deleteFlashcard={() => deleteFlashcard(i)}
-            editFlashcard={() => updateButton(true, flashcard.frontFace, flashcard.backFace, i)} //
-          />)
-        )}
+       <div className="App">
+        <button className='button' onClick={() => updateButton(false)}>Create new flashcard</button>   
+        <button className='button' onClick={returnHomepage}>Return to homepage</button> 
+          <div>        
+          {flashcards.length > 0 && flashcards.map((flashcard, i) => (
+            <Flashcard
+              frontFace={flashcard.frontFace} 
+              backFace={flashcard.backFace} 
+              deleteFlashcard={() => deleteFlashcard(i)}
+              editFlashcard={() => updateButton(true, flashcard.frontFace, flashcard.backFace, i)} 
+              testFlashcard={editingFlashcard} // HERE THOU
+            />)
+          )}
         </div>
       </div> 
     );
