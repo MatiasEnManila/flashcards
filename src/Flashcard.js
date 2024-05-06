@@ -31,8 +31,8 @@ function Flashcard({frontFace, backFace, deleteFlashcard, editFlashcard, testFla
       <div className='flashcard front-flash'>
         <div onClick={() => flipcard(!faceForwardFlashcard)}>{isValidUrl(frontFace) ? <img src={(frontFace)}  alt="picture"/> : frontFace}</div>
         <div>
-          <button type="button" onClick={deleteFlashcard}>Delete</button> 
-          <button type="button" onClick={testFunction}>Edit</button> 
+          <button type="button" className='btn btn-danger' onClick={deleteFlashcard}>Delete</button> 
+          <button type="button" className='btn btn-info' onClick={testFunction}>Edit</button> 
         </div>
       </div>
     )

@@ -16,9 +16,9 @@ function Deck({deckName, deleteDeck, editDeck, viewCards}) {
     <div className='flashcard front-flash'>
       <div>{isValidUrl(deckName) ? <img src={(deckName)}  alt="picture"/> : deckName}</div>
       <div>
-        <button type="button" onClick={viewCards}>View cards</button> 
-        <button type="button" onClick={editDeck}>Edit</button> 
-        <button type="button" onClick={deleteDeck}>Delete</button> 
+        <button type="button" className="btn btn-danger" onClick={viewCards}>View cards</button> 
+        <button type="button" className="btn btn-danger" onClick={editDeck}>Edit</button> 
+        <button type="button" className="btn btn-danger" onClick={deleteDeck}>Delete</button> 
       </div>
     </div>
   )

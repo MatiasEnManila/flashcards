@@ -12,6 +12,8 @@ function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, delete
   const [frontFaceFlashcard, setFrontFaceFlashcard] = useState('');
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
 
+  //todo grids flashcards
+
   const editingFlashcard = () => {
         editFlashcard(flashcardIndex, frontFaceFlashcard, BackFaceFlashcard);
   } 
@@ -70,12 +72,17 @@ function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, delete
         );
       return (
        <div className="App">
-        <form onSubmit={(event) => event.preventDefault()}>
-          <input type="text" onChange={handleSearchFlashcard} placeholder='Search'/> 
-        </form>
+        <nav className='navbar bg-body-tertiary'>
+          <div className='container-fluid'>
 
-        <button className='button' onClick={() => updateButton(false)}>Create new flashcard</button>   
-        <button className='button' onClick={returnHomepage}>Return to homepage</button> 
+            <form onSubmit={(event) => event.preventDefault()}>
+              <input type="text" onChange={handleSearchFlashcard} placeholder='Search'/> 
+            </form>
+
+            <button className="btn btn-success" onClick={() => updateButton(false)}>Create new flashcard</button>   
+            <button className="btn btn-warning" onClick={returnHomepage}>Return to homepage</button> 
+          </div>
+        </nav>
           <div>        
           {flashcards.length > 0 && filteredFlashcard.map((flashcard, i) => (
             <Flashcard

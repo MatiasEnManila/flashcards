@@ -4,9 +4,13 @@
   box-sizing: border-box;
 }
 
-html {
-  background-color: rgb(238, 28, 37);
+html body {
+  background-color: #EE1C25;
 }
+
+/* body {
+  background-color: black;
+} */
 
 .App {  
   display: flex;
@@ -18,17 +22,16 @@ html {
 
 .flashcard {
   display: flex;
-  height: 500px;
-  width: 500px; 
+  height: 350px;
+  width: 350px; 
   flex-direction: column;
   text-align: center;
   border: 9px solid;
   font-weight: bold;
   background-color: rgb(255, 255, 0);
-  grid-template-rows:
 }
 
 .chinese-character {
   width: 450px;
-  margin: 5px
+  margin: 5px;
 }
