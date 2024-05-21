@@ -1,4 +1,4 @@
-import '../src/chinese-characters/stylesheets/Flashcard.css';
+import './Flashcard.css';
 import { useState } from 'react';
 
 function Flashcard({frontFace, backFace, deleteFlashcard, editFlashcard, testFlashcard}) {
@@ -28,21 +28,21 @@ function Flashcard({frontFace, backFace, deleteFlashcard, editFlashcard, testFla
   
   if (faceForwardFlashcard) {
     return (
-      <div className='flashcard front-flash'>
+      <div className='flashcard front-flash mb-3 mt-4'>
         <div onClick={() => flipcard(!faceForwardFlashcard)}>{isValidUrl(frontFace) ? <img src={(frontFace)}  alt="picture"/> : frontFace}</div>
         <div>
-          <button type="button" className='btn btn-danger' onClick={deleteFlashcard}>Delete</button> 
-          <button type="button" className='btn btn-info' onClick={testFunction}>Edit</button> 
+          <button type="button" className="btn btn-danger me-1 text-black fw-bolder" onClick={deleteFlashcard}>Delete</button> 
+          <button type="button" className=" btn btn-danger text-black fw-bolder" onClick={testFunction}>Edit</button> 
         </div>
-      </div>
+      </div>  
     )
   } else {
     return ( 
-      <div className='flashcard back-flash'>
+      <div className='flashcard back-flash mb-3 mt-4'>
         <div onClick={() => flipcard(!faceForwardFlashcard)}>{isValidUrl(backFace) ? <img src={(backFace)}  alt="picture"/> : backFace}</div>
         <div>
-          <button type="button" onClick={deleteFlashcard}>Delete</button>
-          <button type="button" onClick={editFlashcard}>Edit</button> 
+          <button type="button" className="btn btn-danger me-1 text-black fw-bolder" onClick={deleteFlashcard}>Delete</button>
+          <button type="button" className="btn btn-danger text-black fw-bolder" onClick={editFlashcard}>Edit</button> 
         </div>
       </div>
     )

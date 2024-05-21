@@ -1,16 +1,22 @@
+#root {
+  height: 100%;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-html body {
-  background-color: #EE1C25;
+html {
+  height: 100%;
 }
 
-/* body {
-  background-color: black;
-} */
+html body {
+  background-color: #EE1C25;
+  height: 100%;
+}
+
 
 .App {  
   display: flex;
@@ -31,7 +37,43 @@ html body {
   background-color: rgb(255, 255, 0);
 }
 
-.chinese-character {
-  width: 450px;
-  margin: 5px;
+.bg-picture-home {
+  background-image: url(./chinese-characters/background-home.jpg);
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
+
+
+.nav-color {
+  background-color: #FFFF00;
+  border-bottom: 9px solid #000; 
+}
+
+.nav-bg-picture {
+  background-image: url(https://img.freepik.com/free-vector/hand-drawn-chinese-dragon-pattern_23-2150609619.jpg?t=st=1715812625~exp=1715816225~hmac=20891a38c856b2a5c2efc4e48278ec59a3b9d189e9526f86f731acd8c8da3935&w=740);
+  /* background-size: cover; */
+}
+
+/* move */
+.nav-flashcards {
+  background-image: url(https://img.freepik.com/premium-vector/yellow-cloud-pattern-chinesse-new-year-background_728905-190.jpg?w=1060);
+  background-size: cover;
+  background-repeat: repeat;
+}
+
+::placeholder {
+  color: #000000;
+}
+
+.create-deck-background {
+  background-color: #FFFF00;
+}
+
+.deck-container {
+    overflow: auto;
+    max-height: 80%;
+}
+

@@ -8,9 +8,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
-//TODO Emulate flashcards order to look like decks order in row/column
-//TODO NAVBAR flashcards at the top of the web
-//TODO Add distance between rows and nav
+//TODO decks buttons, flashcards: Space between them, edit button backface, flexbox task 
 
 function App() {
   let initialDecks = [];
@@ -22,7 +20,7 @@ function App() {
   const [currentPage, setcurrentPage] = useState('home');
   const [deckName, setDeckName] = useState('');
   const [deckIndex, setDeckIndex] = useState(null);
-  const [decks, setDecks] = useState(initialDecks); //ARRAY OF DECKS
+  const [decks, setDecks] = useState(initialDecks);
   const [isEdit, setIsEdit] = useState(false);
   const [searchedDeck, setSearchedDeck] = useState('');
   const [searchedFlashcard, SetsearchedFlashcard] = useState('');
@@ -35,8 +33,6 @@ function App() {
   const handleSearchFlashcard = (event) => {
     SetsearchedFlashcard(event.target.value);
   }
-
-  console.log(searchedFlashcard);
 
   const handleChangeDeckName = (event) => {
     setDeckName(event.target.value);
@@ -129,7 +125,6 @@ function App() {
       }
     }));
   }
-  
 
   switch (currentPage) { // HOME PAGE
     case 'home':
@@ -139,13 +134,13 @@ function App() {
       let renderedDecks = [];
       let rowOfDecks = [];
 
-      for (let i = 0; i < filteredDecks.length; i++) {
+      for (let i = 0; i < filteredDecks.length; i++) { //3
         rowOfDecks.push(
           <div className="col-4">
             <Deck
               deckName={filteredDecks[i].deckName}
               deleteDeck={() => deleteDeck(i)}
-              editDeck={() => updateDeck(filteredDecks[i].deckName, true, i)} // deckName 
+              editDeck={() => updateDeck(filteredDecks[i].deckName, true, i)} // deckName
               viewCards={() => viewFlashcards(i)}
             />
           </div>
@@ -154,38 +149,46 @@ function App() {
           renderedDecks.push(<div className="row">{[...rowOfDecks]}</div>);
           rowOfDecks = [];
         }
-      } 
+      }
 
       return (
-        <div className="container">
-          <nav className="navbar navbar-dark bg-dark"> 
-          {/* navbar-dark bg-dark */}
-           <div className="container-fluid bg-dark">
-
-          <form onSubmit={(event) => event.preventDefault()}>
-            <input type="text" className='btn btn-outline-success' onChange={handleSearchDeck} placeholder='Search'/> 
-          </form>
-          <a>
-            <button type='button' className="btn btn-primary" onClick={() => updateDeck('', false)}>Create New Deck</button>
-          </a>
-           </div>
-          </nav>
-
-          { renderedDecks.length > 0 && renderedDecks }
-
-        </div>
+        <div className="bg-picture-home" style={{height: "100%"}}>
+          <div>
+            <nav className="navbar mb-3 p-4 ps-2 nav-color nav-bg-picture">
+              <div className="container-fluid">
+                <form onSubmit={(event) => event.preventDefault()}>
+                  <input type="text" id="searchdeck" className="btn btn-outline-warning fw-bold" onChange={handleSearchDeck} placeholder="Search deck"/>  
+                </form>
+                <a>
+                  <button type="button" className="btn btn-warning text-dark fw-bold" onClick={() => updateDeck('', false)}>Create New Deck</button>
+                </a>
+              </div>
+            </nav>
+          </div>
+            <div className="container-fluid deck-container">
+              <div className="row">
+                <div className="col"></div>
+                <div className="col-10">
+                  {renderedDecks.length > 0 && renderedDecks }
+                </div>
+                <div className="col"></div>
+              </div>
+            </div>
+          </div>
       );
+
       break;
-    case 'form':  // CREATE NEW FLASHCARDS + DECKS
+    case 'form':  // CREATE NEW FLASHCARDS + DECKS    
       return (
         <FormDeck
           handleChangeDeckName={handleChangeDeckName}
           onSubmit={ isEdit ? () => editingDeck(deckIndex) : createDeck}
           goBack={updatecurrentPage}
           deckName={deckName}
-        />  
+          />  
       );
       break;
+
     case 'view-cards':
       return (
         <CreateFlashcards
@@ -198,7 +201,7 @@ function App() {
           editFlashcard={(flashcardIndex, frontFaceFlashcard, backFaceFlashcard) => updateFlashcard(deckIndex, flashcardIndex, frontFaceFlashcard, backFaceFlashcard)}//Pasar argumentos a updateFlashcard(); frontface/backface
           />
       );
-      break;
+    break;
   }
 };
 

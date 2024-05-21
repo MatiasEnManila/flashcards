@@ -1,0 +1,54 @@
+body {
+    /* background-image: url(./chinese-characters/Year\ of\ the\ TU.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* .background-size {
+    position:fixed;
+    padding:0;
+    margin:0;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    color: #FFFF00;
+} */
+
+.navbar-flascard-picture {
+    background-size: contain;
+    background-image: url(./chinese-characters/edit-flashcard.png);
+}
+
+.border-navbar {
+    background-color: #FFFF00;
+    border-bottom: 9px solid #000; 
+}
+
+
+.nav-edit-flashcard {
+    background-image: url(https://img.freepik.com/premium-vector/yellow-cloud-pattern-chinesse-new-year-background_728905-190.jpg?w=1060);
+}
+
+.label-edit {
+    border-radius: 5px;
+    border: 2px solid black;
+    background-color: #EE1C25;
+    color: white;
+}
+
+.gb-button.btn.btn-warning {
+    border: 2px solid black;
+    --bs-btn-hover-bg: #EE1C25 ;
+    --bs-btn-bg: #ffb600;
+
+}
+
+.submit-button.btn.btn-success {
+    border: 2px solid black;
+    --bs-btn-bg: #ffb600;
+    --bs-btn-hover-bg: #ffb600 ;
+}
+
+
+

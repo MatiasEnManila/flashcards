@@ -1,4 +1,5 @@
 import './App.css';
+import './CreateFlashcards.css';
 import './Flashcard.js';  
 import Flashcard from './Flashcard.js';
 import Formflashcard from './Formflashcard.js';
@@ -12,7 +13,6 @@ function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, delete
   const [frontFaceFlashcard, setFrontFaceFlashcard] = useState('');
   const [BackFaceFlashcard, setBackFaceFlashcard] = useState('');
 
-  //todo grids flashcards
 
   const editingFlashcard = () => {
         editFlashcard(flashcardIndex, frontFaceFlashcard, BackFaceFlashcard);
@@ -70,32 +70,58 @@ function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, delete
             || flashcard.backFace.toLowerCase().includes(searchedFlashcard.toLowerCase())
           )
         );
-      return (
-       <div className="App">
-        <nav className='navbar bg-body-tertiary'>
-          <div className='container-fluid'>
+      let renderedFlashcards = [];
+      let rowOfFlashcards = [];
 
-            <form onSubmit={(event) => event.preventDefault()}>
-              <input type="text" onChange={handleSearchFlashcard} placeholder='Search'/> 
-            </form>
-
-            <button className="btn btn-success" onClick={() => updateButton(false)}>Create new flashcard</button>   
-            <button className="btn btn-warning" onClick={returnHomepage}>Return to homepage</button> 
-          </div>
-        </nav>
-          <div>        
-          {flashcards.length > 0 && filteredFlashcard.map((flashcard, i) => (
+      for (let i = 0; i < filteredFlashcard.length; i++) {
+        rowOfFlashcards.push(
+          <div className="col-4">
             <Flashcard
-            frontFace={flashcard.frontFace} 
-            backFace={flashcard.backFace} 
-            deleteFlashcard={() => deleteFlashcard(i)}
-            editFlashcard={() => updateButton(true, flashcard.frontFace, flashcard.backFace, i)} 
-            testFlashcard={editingFlashcard} // HERE THOU
-            />)
-          )}
+              frontFace={filteredFlashcard[i].frontFace} 
+              backFace={filteredFlashcard[i].backFace} 
+              deleteFlashcard={() => deleteFlashcard(i)}
+              editFlashcard={() => updateButton(true, filteredFlashcard[i].frontFace, filteredFlashcard[i].backFace, i)} 
+              testFlashcard={editingFlashcard} // HERE THOU
+            />
+          </div>
+          );
+          if ((i + 1) % 3 === 0 || i === filteredFlashcard.length - 1) {
+            renderedFlashcards.push(<div className="row">{[...rowOfFlashcards]}</div>)
+            rowOfFlashcards = [];
+          }
+        }
+        
+      return (
+        <div className="bg-picture-flashcards" style={{height: "100%"}}>
+          <div>
+            <nav className="navbar mb-4 p-4 nav-flashcards nav-color">
+              <div className="container-fluid">
+                <form onSubmit={(event) => event.preventDefault()}>
+                  <input 
+                    className="btn btn-danger text-light-emphasis fw-bold" 
+                    type="text"
+                    onChange={handleSearchFlashcard} 
+                    placeholder='Search flashcard'
+                    /> 
+                </form>
+                  <a>
+                    <button type="submit" className="btn btn-success me-3 fw-bold" onClick={() => updateButton(false)}>Create new flashcard</button>   
+                    <button className="btn btn-warning button-border fw-bold" onClick={returnHomepage}>Return to homepage</button>
+                  </a>
+              </div>
+            </nav>
+          </div>
+            <div className="container-fluid flashcard-container">
+              <div className="row">
+                <div className="col"></div>
+                <div className="col-10">
+                  {flashcards.length > 0 && renderedFlashcards}
+                </div>
+                <div className="col"></div>
+              </div>
+            </div>
         </div>
-      </div> 
-    );
+     );
     }
 }
 

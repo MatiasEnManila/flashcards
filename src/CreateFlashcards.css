@@ -1,0 +1,36 @@
+.bg-picture-flashcards {
+    background-image: url(./chinese-characters/Year\ of\ the\ TU.jpg);
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.nav-color {
+    background-color: #FFFF00;
+    border-bottom: 9px solid #000; 
+  }
+
+
+  .nav-flashcards {
+    background-image: url(./chinese-characters/flashcards-navbar.jpg);
+    background-size: cover;
+    background-repeat: repeat;
+  }
+
+  .button-border {
+    border: 1px solid #000!important  ;
+  }
+
+  .flashcard-container {
+    overflow: auto;
+    max-height: 80%;
+  }
+
+  #searchdeck::placeholder {
+    color: white;
+    -webkit-text-stroke: 0.5px black;  
+  }
+  
+

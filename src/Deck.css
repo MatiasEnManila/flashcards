@@ -1,0 +1,24 @@
+.button-deck.btn.btn-danger {
+    --bs-btn-bg: #dc0000 ;
+}
+
+.deck-color.btn.bnt-warning {
+    --bs-btn-bg: #ffb600 ;
+}
+
+
+.flashcard {
+    display: flex;
+    height: 350px;
+    width: 350px; 
+    flex-direction: column;
+    text-align: center;
+    border: 9px solid;
+    font-weight: bold;
+    background-color: #FFFF00
+    ;
+  }
+
+/* COLOR PALETTE DECKS */
+/* #ffb600  HUANG
+#dc0000     HONG */ 

@@ -1,4 +1,5 @@
-import '../src/chinese-characters/stylesheets/Flashcard.css';
+// import './Flashcard.css';
+import './Deck.css';
 
 function Deck({deckName, deleteDeck, editDeck, viewCards}) {
   const isValidUrl = urlString=> {
@@ -13,13 +14,13 @@ function Deck({deckName, deleteDeck, editDeck, viewCards}) {
   }
 
   return (
-    <div className='flashcard front-flash'>
+    <div className="flashcard front-flash deck-color mb-3 mt-4">
       <div>{isValidUrl(deckName) ? <img src={(deckName)}  alt="picture"/> : deckName}</div>
-      <div>
-        <button type="button" className="btn btn-danger" onClick={viewCards}>View cards</button> 
-        <button type="button" className="btn btn-danger" onClick={editDeck}>Edit</button> 
-        <button type="button" className="btn btn-danger" onClick={deleteDeck}>Delete</button> 
-      </div>
+        <div className="mb-4">
+          <button type="button" className="btn btn-danger button-deck me-1 text-black fw-bolder" onClick={viewCards}>View cards</button> 
+          <button type="button" className="btn btn-danger button-deck me-1 text-black fw-bolder" onClick={editDeck}>Edit</button> 
+          <button type="button" className="btn btn-danger button-deck text-black fw-bolder" onClick={deleteDeck}>Delete</button> 
+        </div>
     </div>
   )
 };
