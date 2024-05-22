@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/flashcards/static/css/main.e71eb626.css",
+    "main.js": "/flashcards/static/js/main.871452a9.js",
+    "static/js/787.b35e1a09.chunk.js": "/flashcards/static/js/787.b35e1a09.chunk.js",
+    "static/media/background-home.jpg": "/flashcards/static/media/background-home.9a4503a1f606ad21d8e8.jpg",
+    "static/media/create-deck-bg.jpg": "/flashcards/static/media/create-deck-bg.996aeef36d5b66df36c5.jpg",
+    "static/media/flashcards-navbar.jpg": "/flashcards/static/media/flashcards-navbar.ef06dae0e6805e2fc3bf.jpg",
+    "static/media/Year of the TU.jpg": "/flashcards/static/media/Year of the TU.13a569e92c77016ed122.jpg",
+    "static/media/edit-flashcard.png": "/flashcards/static/media/edit-flashcard.bfdb3db80bc6fbb0baf7.png",
+    "index.html": "/flashcards/index.html",
+    "main.e71eb626.css.map": "/flashcards/static/css/main.e71eb626.css.map",
+    "main.871452a9.js.map": "/flashcards/static/js/main.871452a9.js.map",
+    "787.b35e1a09.chunk.js.map": "/flashcards/static/js/787.b35e1a09.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e71eb626.css",
+    "static/js/main.871452a9.js"
+  ]
+}
