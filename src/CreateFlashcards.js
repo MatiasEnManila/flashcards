@@ -75,7 +75,7 @@ function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, delete
 
       for (let i = 0; i < filteredFlashcard.length; i++) {
         rowOfFlashcards.push(
-          <div className="col-4">
+          <div className="col">
             <Flashcard
               frontFace={filteredFlashcard[i].frontFace} 
               backFace={filteredFlashcard[i].backFace} 
@@ -114,7 +114,7 @@ function CreateFlashcards({returnToHomePage, flashcards, createFlashcard, delete
             <div className="container-fluid flashcard-container">
               <div className="row">
                 <div className="col"></div>
-                <div className="col-10">
+                <div className="col">
                   {flashcards.length > 0 && renderedFlashcards}
                 </div>
                 <div className="col"></div>

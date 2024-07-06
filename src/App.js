@@ -8,7 +8,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
-//TODO decks buttons, flashcards: Space between them, edit button backface, flexbox task 
 
 function App() {
   let initialDecks = [];
@@ -136,7 +135,7 @@ function App() {
 
       for (let i = 0; i < filteredDecks.length; i++) { //3
         rowOfDecks.push(
-          <div className="col-4">
+          <div className="col">
             <Deck
               deckName={filteredDecks[i].deckName}
               deleteDeck={() => deleteDeck(i)}
@@ -168,13 +167,15 @@ function App() {
             <div className="container-fluid deck-container">
               <div className="row">
                 <div className="col"></div>
-                <div className="col-10">
+                <div className="col">
                   {renderedDecks.length > 0 && renderedDecks }
                 </div>
-                <div className="col"></div>
+                <div className="col">
+                <div></div>
+                </div>
               </div>
             </div>
-          </div>
+        </div>
       );
 
       break;
@@ -185,7 +186,7 @@ function App() {
           onSubmit={ isEdit ? () => editingDeck(deckIndex) : createDeck}
           goBack={updatecurrentPage}
           deckName={deckName}
-          />  
+        />  
       );
       break;
 
@@ -199,7 +200,7 @@ function App() {
           searchedFlashcard={searchedFlashcard}
           deleteFlashcard={(flashcardIndex) => deleteFlashcard(deckIndex, flashcardIndex)}
           editFlashcard={(flashcardIndex, frontFaceFlashcard, backFaceFlashcard) => updateFlashcard(deckIndex, flashcardIndex, frontFaceFlashcard, backFaceFlashcard)}//Pasar argumentos a updateFlashcard(); frontface/backface
-          />
+        />
       );
     break;
   }
